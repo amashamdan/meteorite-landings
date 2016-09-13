@@ -1,0 +1,24 @@
+/* line 1, ../sass/screen.scss */
+body {
+  font-family: 'PT Sans', sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: gray;
+}
+
+/* line 9, ../sass/screen.scss */
+#chart-area {
+  margin: 0;
+}
+
+/* line 13, ../sass/screen.scss */
+.footer {
+  text-align: left;
+  font-size: 0.8em;
+  margin: 0 0 0 20px;
+}
+/* line 17, ../sass/screen.scss */
+.footer a {
+  color: gray;
+}
