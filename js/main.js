@@ -78,6 +78,7 @@ function plotPoints() {
 					.style("opacity", 0.7);
 			}
 		}
+		var tooltipStatus = false;
 		$(".meteorite").hover(function(e) {
 			var xPosition = e.pageX;
 			var yPosition = e.pageY;
@@ -89,8 +90,17 @@ function plotPoints() {
 								"<p>Latitude: " + $(this).attr("lat") + "</p>" +
 								"<p>Longitude: " + $(this).attr("lon") + "</p>");
 			$("#tooltip").show();
+			tooltipStatus = true;
 		}, function() {
 			$("#tooltip").hide();
+			tooltipStatus = false;
 		});
+		$(document).mousemove(function(e) {
+			if (tooltipStatus) {
+				var xPosition = e.pageX;
+				var yPosition = e.pageY;
+				$("#tooltip").css({"left": xPosition + 10, "top": yPosition + 10});
+			}
+		})
 	})
 }
