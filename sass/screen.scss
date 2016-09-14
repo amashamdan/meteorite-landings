@@ -18,3 +18,22 @@ body {
 		color: gray;
 	}
 }
+
+.meteorite:hover {
+	fill: black;
+	cursor: pointer;
+}
+
+#tooltip {
+	display: none;
+	position: absolute;
+	background-color: gray;
+	color: white;
+	opacity: 0.8;
+	border-radius: 20px;
+	padding: 10px;
+	font-size: 0.8em;
+	p {
+		margin: 0;
+	}
+}

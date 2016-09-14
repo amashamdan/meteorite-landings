@@ -22,3 +22,25 @@ body {
 .footer a {
   color: gray;
 }
+
+/* line 22, ../sass/screen.scss */
+.meteorite:hover {
+  fill: black;
+  cursor: pointer;
+}
+
+/* line 27, ../sass/screen.scss */
+#tooltip {
+  display: none;
+  position: absolute;
+  background-color: gray;
+  color: white;
+  opacity: 0.8;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 0.8em;
+}
+/* line 36, ../sass/screen.scss */
+#tooltip p {
+  margin: 0;
+}
