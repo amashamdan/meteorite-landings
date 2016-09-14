@@ -31,9 +31,6 @@ function plotPoints() {
 							.domain([d3.min(json.features, function(d) {
 								return Number(d.properties.mass);
 							}), d3.max(json.features, function(d) {
-								if (Number(d.properties.mass) > 500000) {
-									console.log(Number(d.properties.mass))
-								}
 								return Number(d.properties.mass);
 							})])
 							.range([2, 60])
@@ -49,6 +46,31 @@ function plotPoints() {
 					.attr("r", function() {
 						return massScale(Number(json.features[point].properties.mass))
 					})
+					.attr("class", "meteorite")
+					.attr("name", function() {
+						return json.features[point].properties.name
+					})
+					.attr("mass", function() {
+						return json.features[point].properties.mass
+					})
+					.attr("classification", function() {
+						return json.features[point].properties.recclass
+					})
+					.attr("lat", function() {
+						return json.features[point].properties.reclat
+					})
+					.attr("lon", function() {
+						return json.features[point].properties.reclong
+					})
+					.attr("year", function() {
+						if (json.features[point].properties.year) {
+							var year = json.features[point].properties.year
+							year = year.split("-")[0];
+							return year
+						} else {
+							return "Unknown";
+						}
+					})
 					.attr("fill", function() {
 						//quantize not used because most meteorites are small, no variety in colors.
 						return colors[Math.floor(Math.random() * 8)];
@@ -56,5 +78,19 @@ function plotPoints() {
 					.style("opacity", 0.7);
 			}
 		}
+		$(".meteorite").hover(function(e) {
+			var xPosition = e.pageX;
+			var yPosition = e.pageY;
+			$("#tooltip").css({"left": xPosition + 10, "top": yPosition + 10});
+			$("#tooltip").html("<p>Name: " + $(this).attr("name") + "</p>" +
+								"<p>Year: " + $(this).attr("year") + "</p>" +
+								"<p>Mass: " + $(this).attr("mass") + "</p>" +
+								"<p>Class: " + $(this).attr("classification") + "</p>" +
+								"<p>Latitude: " + $(this).attr("lat") + "</p>" +
+								"<p>Longitude: " + $(this).attr("lon") + "</p>");
+			$("#tooltip").show();
+		}, function() {
+			$("#tooltip").hide();
+		});
 	})
 }
