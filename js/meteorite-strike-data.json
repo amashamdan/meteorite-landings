@@ -22940,31 +22940,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          134.65333,
-          46.16
-        ]
-      },
-      "properties": {
-        "mass": "23000000",
-        "name": "Sikhote-Alin",
-        "reclong": "134.653330",
-        "geolocation_address": null,
-        "geolocation_zip": null,
-        "year": "1947-01-01T00:00:00.000",
-        "geolocation_state": null,
-        "fall": "Fell",
-        "id": "23593",
-        "recclass": "Iron, IIAB",
-        "reclat": "46.160000",
-        "geolocation_city": null,
-        "nametype": "Valid"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -101.38333,
           20.93333
         ]
