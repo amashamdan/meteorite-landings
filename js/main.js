@@ -35,6 +35,62 @@ function plotPoints() {
 							})])
 							.range([2, 60])
 
+		chart.selectAll("circle")
+			.data(json.features)
+			.enter()
+			.append("circle")
+			.attr("r", function(d) {
+				return massScale(Number(d.properties.mass))
+			})
+			.attr("cx", function(d) {
+				if (d.geometry) {
+					var lon = d.geometry.coordinates[0];
+					var lat = d.geometry.coordinates[1];
+					var convertedLocation = projection([lon, lat]);
+					return convertedLocation[0];
+				}
+			})
+			.attr("cy", function(d) {
+				if (d.geometry) {
+					var lon = d.geometry.coordinates[0];
+					var lat = d.geometry.coordinates[1];
+					var convertedLocation = projection([lon, lat]);
+					return convertedLocation[1];
+				}
+			})
+			.attr("class", "meteorite")
+			.attr("name", function(d) {
+				return d.properties.name
+			})
+			.attr("mass", function(d) {
+				return d.properties.mass
+			})
+			.attr("classification", function(d) {
+				return d.properties.recclass
+			})
+			.attr("lat", function(d) {
+				return d.properties.reclat
+			})
+			.attr("lon", function(d) {
+				return d.properties.reclong
+			})
+			.attr("year", function(d) {
+				if (d.properties.year) {
+					var year = d.properties.year
+					year = year.split("-")[0];
+					return year
+				} else {
+					return "Unknown";
+				}
+			})
+			.attr("fill", function() {
+				//quantize not used because most meteorites are small, no variety in colors.
+				return colors[Math.floor(Math.random() * 8)];
+			})
+			.attr("stroke", "black")
+			.attr("stroke-width", 0.5)
+			.style("opacity", 0.7)
+/*
 		for (var point in json.features) {
 			if (json.features[point].geometry) {
 				var lon = json.features[point].geometry.coordinates[0];
@@ -75,9 +131,18 @@ function plotPoints() {
 						//quantize not used because most meteorites are small, no variety in colors.
 						return colors[Math.floor(Math.random() * 8)];
 					})
-					.style("opacity", 0.7);
+					.attr("stroke", "black")
+					.attr("stroke-width", 0.5)
+					.style("opacity", 0.7)
 			}
 		}
+
+*/
+		/*d3.selectAll("circle").sort(function(a, b) {
+			console.log(a.mass);
+			return d3.ascending(a.properties.mass, b.properties.mass);
+		})*/
+
 		var tooltipStatus = false;
 		$(".meteorite").hover(function(e) {
 			var xPosition = e.pageX;
