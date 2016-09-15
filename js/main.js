@@ -4,7 +4,16 @@ var colors = ["#d53e4f", "#f46d43", "#fdae61", "#fee08b", "#e6f598", "#abdda4", 
 var chart = d3.select("#chart-area").append("svg")
 				.attr("width", width)
 				.attr("height", height)
-				.style("background-color", "#A3CCFF");
+				.style("background-color", "#A3CCFF")
+				.append("g")
+    .call(d3.behavior.zoom().scaleExtent([1, 20]).on("zoom", zoom))
+  .append("g")
+  .call(d3.behavior.drag())
+
+
+function zoom() {
+  chart.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
 
 var projection = d3.geo.equirectangular().translate([width/2, height/2]).scale([width / 6.315789]);
 
