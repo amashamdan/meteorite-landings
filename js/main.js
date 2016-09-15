@@ -34,12 +34,17 @@ function plotPoints() {
 								return Number(d.properties.mass);
 							})])
 							.range([2, 60])
-
 		chart.selectAll("circle")
 			.data(json.features)
 			.enter()
 			.append("circle")
+			.attr("id", function(d, i) {
+				return "circle" + i;
+			})
 			.attr("r", function(d) {
+				return massScale(Number(d.properties.mass))
+			})
+			.attr("original", function(d) {
 				return massScale(Number(d.properties.mass))
 			})
 			.attr("cx", function(d) {
@@ -97,6 +102,15 @@ function plotPoints() {
 
 		var tooltipStatus = false;
 		$(".meteorite").hover(function(e) {
+			var hovered = $(this).attr("id");
+			var hoveredSize = $(this).attr("r");
+			d3.select("#"+ hovered).transition().attr("r", function() {
+				if (hoveredSize > 20) {
+					return hoveredSize * 2;
+				} else {
+					return hoveredSize * 4;
+				}
+			});
 			var xPosition = e.pageX;
 			var yPosition = e.pageY;
 			$("#tooltip").css({"left": xPosition + 10, "top": yPosition + 10});
@@ -109,6 +123,9 @@ function plotPoints() {
 			$("#tooltip").show();
 			tooltipStatus = true;
 		}, function() {
+			var unhovered = $(this).attr("id");
+			var originalSize = $(this).attr("original");
+			d3.select("#"+ unhovered).transition().attr("r", originalSize);
 			$("#tooltip").hide();
 			tooltipStatus = false;
 		});
